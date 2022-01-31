@@ -1,14 +1,12 @@
 package io.github.overrun.baka4n.inordertosurvive.event;
 
-import io.github.overrun.baka4n.inordertosurvive.InOrderToSurvive;
-
 import io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.player.PlayerEvent;
+
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -20,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
  * When right-clicking on a stone, flint will turn into flint flakes
  */
 @Mod.EventBusSubscriber(Dist.CLIENT)
-public class EventRightClick {
+public class EventClick {
 
 	@SubscribeEvent
 	public static void rightClient(PlayerInteractEvent.RightClickBlock event) {
