@@ -1,4 +1,4 @@
-# SquidCraft ![GitHub](https://github.com/Over-Run/InOrderToSurvive)
+# InOrderToSurvive ![GitHub](https://github.com/Over-Run/InOrderToSurvive)
 
 Welcome to play In Order To Survive.
 
