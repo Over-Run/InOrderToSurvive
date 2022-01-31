@@ -1,4 +1,4 @@
-# SquidCraft ![GitHub](https://img.shields.io/github/license/Over-Run/)
+# SquidCraft ![GitHub](https://github.com/Over-Run/InOrderToSurvive)
 
 Welcome to play In Order To Survive.
 
