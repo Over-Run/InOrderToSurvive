@@ -1,6 +1,5 @@
 package io.github.overrun.baka4n.inordertosurvive.event;
 
-import io.github.overrun.baka4n.inordertosurvive.InOrderToSurvive;
 import io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry;
 
 import net.minecraft.core.BlockPos;
