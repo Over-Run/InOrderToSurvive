@@ -54,7 +54,7 @@ public class AllRegistry {
 		}
 		public static final RegistryObject<Block> test_block;
 		static {
-			test_block = registerBlock("test_block_two", () -> new BasicBlock(BasicBlock.pProperties.strength(9f)
+			test_block = registerBlock("test_block", () -> new BasicBlock(BasicBlock.pProperties.strength(9f)
 					.requiresCorrectToolForDrops()), BasicBlock.properties.tab(ItemTabs.block_tabs));
 		}
 	}

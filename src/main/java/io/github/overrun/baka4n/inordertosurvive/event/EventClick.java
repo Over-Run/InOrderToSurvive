@@ -84,7 +84,6 @@ public class EventClick {
 		// main hand item don't have air
 		boolean b = !stack.toString().equals(AIR.toString());
 		//random
-		int random = (int) (Math.random() * 100);
 		event.setCanceled(!item.equals(GRAVEL)
 				&& !ifBool(item, ACACIA_LEAVES, b)
 				&& !ifBool(item, BIRCH_LEAVES, b)
@@ -95,14 +94,5 @@ public class EventClick {
 	}
 	public static boolean ifBool(Item item,Item item2, boolean b) {
 		return item.equals(item2) && b;
-	}
-	public static void dropLeaves(int ran_min,int ran_max,Player player, ItemStack stack, ItemStack stack2, ItemStack stack3) {
-		if ((int) (Math.random() * 100) <=ran_min) {
-			player.drop(stack, true);
-		} else if ((int) (Math.random() * 100) >= ran_max) {
-			player.drop(stack2, true);
-		} else {
-			player.drop(stack3,true);
-		}
 	}
 }
