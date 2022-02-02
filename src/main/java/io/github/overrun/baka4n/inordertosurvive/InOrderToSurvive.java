@@ -7,35 +7,29 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
-import static io.github.overrun.baka4n.inordertosurvive.Modid.modid;
-
+import static io.github.overrun.baka4n.inordertosurvive.Final.inOrderToSurvive;
+import static io.github.overrun.baka4n.inordertosurvive.Final.msg;
 
 // The value here should match an entry in the META-INF/mods.toml file
 
-@Mod(modid)
+@Mod(inOrderToSurvive)
 public class InOrderToSurvive
 {
     //I event Bus for forge
     public IEventBus iEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-    // using log4j
-    private static final Logger msg = LogManager.getLogger();
     // log message void
     public static void LOGGER(String var1, String var2, Object throwable) {
         switch (var1) {
             case "info" -> {
                 if (throwable instanceof Throwable) {
-                    msg.info("[" + modid + "]" + var2, (Throwable) throwable);
+                    msg.info('[' + inOrderToSurvive + ']' + var2, (Throwable) throwable);
                 } else {
-                    msg.info("[" + modid + "]" + var2);
+                    msg.info('[' + inOrderToSurvive + ']' + var2);
                 }
             }
-            case "debug" -> {
-                msg.debug("[" + modid + "]" + var2);
-            }
+            case "debug" -> msg.debug('[' + inOrderToSurvive + ']' + var2);
         }
     }
     //add a comment

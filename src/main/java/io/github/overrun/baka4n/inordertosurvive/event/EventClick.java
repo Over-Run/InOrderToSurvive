@@ -14,11 +14,15 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Material;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+import java.util.Objects;
+
+import static io.github.overrun.baka4n.inordertosurvive.Final.*;
 import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.ItemRegistry.KnifeRegistry.*;
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
 import static net.minecraft.world.item.Items.*;
@@ -33,15 +37,12 @@ import static net.minecraft.world.item.Items.*;
  */
 @EventBusSubscriber(Dist.CLIENT)
 public class EventClick {
-	public static final ItemStack airs = itemStacks(AIR);
+
 	@SubscribeEvent
 	public static void rightClient(PlayerInteractEvent.RightClickBlock event) {
-
 		// item count -1
 		int value = event.getItemStack().getCount();
 		int a = value - 1;
-		// random
-		int random = (int) (Math.random() * 100);
 		//1.17.1 World ->1,18,1 Level
 		Level world = event.getWorld();
 		BlockPos blockPos = event.getPos();
@@ -56,7 +57,7 @@ public class EventClick {
 				ItemStack handStack = new ItemStack(FLINT.asItem(), a);
 
 				entityPlayer.setItemInHand(MAIN_HAND, handStack);
-				if (random <= 70) {
+				if (ran <= 70) {
 					ItemStack dropStack = new ItemStack(AllRegistry.ItemRegistry.flint_flakes.get().asItem());
 					entityPlayer.drop(dropStack, true);
 				}
@@ -64,19 +65,19 @@ public class EventClick {
 				ItemStack handStack = new ItemStack(AIR.asItem());
 				entityPlayer.setItemInHand(MAIN_HAND, handStack);
 
-				if (random <= 70) {
+				if (ran <= 70) {
 					ItemStack dropStack = new ItemStack(AllRegistry.ItemRegistry.flint_flakes.get().asItem());
 					entityPlayer.drop(dropStack, true);
 				}
 			}
 		}
 
-		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(Blocks.GRASS.asItem().toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(flint_machining_knife.get().asItem().toString())) {
+		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(GRASS.toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(flint_machining_knife.get().asItem().toString())) {
 			//get damage
 			//fix bug
 			//fix damage == 6
 			// AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(stack, damage);
-			Tag tag = entityPlayer.getItemInHand(MAIN_HAND).finishUsingItem(world, entityPlayer).getTag().get("Damage");
+			Tag tag = Objects.requireNonNull(entityPlayer.getItemInHand(MAIN_HAND).finishUsingItem(world, entityPlayer).getTag()).get("Damage");
 			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
 
 			if (damage == 6) {
@@ -84,8 +85,8 @@ public class EventClick {
 			} else {
 				flint_machining_knife.get().setDamage(stack, damage);
 			}
-			if (random <=30) {
-				entityPlayer.drop(itemStacks(AllRegistry.ItemRegistry.fuck.get().asItem()), true);
+			if (ran <=30) {
+				entityPlayer.drop(fuck, true);
 			}
 		}
 	}
@@ -109,14 +110,11 @@ public class EventClick {
 		LevelAccessor world = event.getWorld();
 		BlockPos blockPos = event.getPos();
 		Item item = world.getBlockState(blockPos).getBlock().asItem();
-		// random
-		int random = (int) (Math.random() * 100);
 
 		// main hand item don't have air
 		boolean b = !stack.toString().equals(AIR.toString());
 		boolean c = stack.toString().equals(flint_machining_knife.get().asItem().toString());
 
-		//random
 		event.setCanceled(!item.equals(GRAVEL)
 				&& ifNoBool(item, ACACIA_LEAVES, b)
 				&& ifNoBool(item, BIRCH_LEAVES, b)
@@ -127,9 +125,9 @@ public class EventClick {
 				&& ifNoBool(item, GRASS, c));
 
 		if (ifBool(item, GRASS, c)) {
-			Tag tag = eventPlayer.getItemInHand(MAIN_HAND).finishUsingItem((Level) world, eventPlayer).getTag().get("Damage");
+			Tag tag = Objects.requireNonNull(eventPlayer.getItemInHand(MAIN_HAND).finishUsingItem((Level) world, eventPlayer).getTag()).get("Damage");
 			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
-			switch (random) {
+			switch (ran) {
 				// There is a certain probability that there is no loss
 				case 1, 3, 5, 7, 11, 13, 17, 19, 23 ->{}
 				default -> {
@@ -141,16 +139,13 @@ public class EventClick {
 				}
 			}
 
-			if (random <=31) {
-				eventPlayer.drop(itemStacks(AllRegistry.ItemRegistry.fuck.get().asItem()), true);
+			if (ran <=31) {
+				eventPlayer.drop(fuck, true);
 			}
 		}
 
 	}
 
-	public static ItemStack itemStacks(Item item) {
-		return new ItemStack(item);
-	}
 	public static boolean ifNoBool(Item item, Item item2, boolean b) {
 		return !item.equals(item2) && b;
 	}

@@ -6,6 +6,4 @@ public class TinIngot extends Item {
 	public TinIngot(Properties pProperties) {
 		super(pProperties.stacksTo(64));
 	}
-
-	public static final Item.Properties tinIngot = new Item.Properties();
 }

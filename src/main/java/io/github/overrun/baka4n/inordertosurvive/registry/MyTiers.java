@@ -1,11 +1,13 @@
 package io.github.overrun.baka4n.inordertosurvive.registry;
 
+import io.github.overrun.baka4n.inordertosurvive.Final;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -14,9 +16,7 @@ import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.Ite
 import static net.minecraft.world.item.crafting.Ingredient.fromValues;
 
 public enum MyTiers implements Tier {
-	Flint(0, 5, 2.0F, 0.0F, 15, () -> {
-		return of(ItemTags.PLANKS);
-	});
+	Flint(0, 5, 2.0F, 0.0F, 15, () -> of(ItemTags.PLANKS));
 
 	public static Ingredient of(Tag<Item> pTag) {
 		return fromValues(Stream.of(new Ingredient.TagValue(pTag)));
@@ -58,7 +58,7 @@ public enum MyTiers implements Tier {
 		return this.enchantmentValue;
 	}
 
-	public Ingredient getRepairIngredient() {
+	public @NotNull Ingredient getRepairIngredient() {
 		return this.repairIngredient.get();
 	}
 

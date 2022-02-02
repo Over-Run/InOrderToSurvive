@@ -4,20 +4,20 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 
-//basic item reigstry
-public class BasicItem extends Item {
-	public static final Properties pProperties = new Item.Properties().tab(CreativeModeTab.TAB_MISC);
+import static io.github.overrun.baka4n.inordertosurvive.Final.properties;
 
+//basic item registry
+public class BasicItem extends Item {
 	//basic for item
-	public BasicItem() {
-		super(pProperties);
-	}
+	//	public BasicItem() {
+	//		super(pProperties);
+	//	}
 	//basic for food item
-	public BasicItem(FoodProperties foodProperties) {
-		super(pProperties.food(foodProperties));
-	}
+//	public BasicItem(FoodProperties foodProperties, CreativeModeTab tab) {
+//		super(Final.properties.tab(tab).food(foodProperties));
+//	}
 	//flint flakes
 	public BasicItem(CreativeModeTab tab) {
-		super(pProperties.tab(tab));
+		super(properties.tab(tab));
 	}
 }
