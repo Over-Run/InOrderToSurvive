@@ -10,6 +10,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.ItemRegistry.KnifeRegistry.*;
 import static net.minecraft.world.item.crafting.Ingredient.fromValues;
 
 public enum MyTiers implements Tier {
@@ -61,5 +62,5 @@ public enum MyTiers implements Tier {
 		return this.repairIngredient.get();
 	}
 
-	@javax.annotation.Nullable public net.minecraft.tags.Tag<net.minecraft.world.level.block.Block> getTag() { return AllRegistry.KnifeRegistry.getTagFromVanillaTier(this);}
+	@javax.annotation.Nullable public net.minecraft.tags.Tag<net.minecraft.world.level.block.Block> getTag() { return getTagFromVanillaTier(this);}
 }

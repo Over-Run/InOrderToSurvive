@@ -5,6 +5,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 import static io.github.overrun.baka4n.inordertosurvive.Modid.modid;
+import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.ItemRegistry.KnifeRegistry.*;
 
 public class ItemTabs {
 	public static final CreativeModeTab basic_tabs = new CreativeModeTab(modid +"." + "basic") {
@@ -22,7 +23,7 @@ public class ItemTabs {
 	public static final CreativeModeTab knife = new CreativeModeTab(modid + "." + "knife") {
 		@Override
 		public ItemStack makeIcon() {
-			return new ItemStack(AllRegistry.KnifeRegistry.flint_machining_knife.get().asItem());
+			return new ItemStack(flint_machining_knife.get().asItem());
 		}
 	};
 }

@@ -19,6 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Supplier;
 
 import static io.github.overrun.baka4n.inordertosurvive.Modid.modid;
+import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.ItemRegistry.KnifeRegistry;
 import static io.github.overrun.baka4n.inordertosurvive.registry.MyTiers.Flint;
 
 /**
@@ -38,9 +39,9 @@ public class AllRegistry {
 	 * @param iEventBus
 	 */
 	public static void registry(IEventBus iEventBus) {
-		new BlockRegistry();
-		new ItemRegistry();
-		new KnifeRegistry();
+		BlockRegistry.init();
+		ItemRegistry.init();
+		KnifeRegistry.init();
 		// first registry blocks, second registry items.
 		blocks.register(iEventBus);
 		items.register(iEventBus);
@@ -58,19 +59,19 @@ public class AllRegistry {
 			return items.register(name, () -> new BlockItem(block.get(),
 					properties));
 		}
-		public static final RegistryObject<Block> test_block;
-		static {
+		public static RegistryObject<Block> test_block;
+
+		public static void init() {
 			test_block = registerBlock("test_block", () -> new BasicBlock(BasicBlock.pProperties.strength(9f)
 					.requiresCorrectToolForDrops()), BasicBlock.properties.tab(ItemTabs.block_tabs));
 		}
 	}
 
 	public static class ItemRegistry {
-		public static final RegistryObject<Item> tin_ingot;
-		public static final RegistryObject<Item> flint_flakes;
-		public static final RegistryObject<Item> fuck;
-
-		static {
+		public static RegistryObject<Item> tin_ingot;
+		public static RegistryObject<Item> flint_flakes;
+		public static RegistryObject<Item> fuck;
+		public static void init() {
 			tin_ingot = items.register("tin_ingot",
 					() -> new TinIngot(TinIngot.tinIngot.tab(CreativeModeTab.TAB_MISC)));
 			flint_flakes = items.register("flint_flakes",
@@ -78,30 +79,27 @@ public class AllRegistry {
 			fuck = items.register("fuck",
 					() -> new BasicItem(ItemTabs.basic_tabs));
 		}
-	}
+		public static class KnifeRegistry {
 
-	public static class KnifeRegistry {
+			public static Tag<Block> getTagFromVanillaTier(MyTiers tier)
+			{
+				return switch(tier)
+						{
+							case Flint -> Flints;
+						};
+			}
 
-		public static Tag<Block> getTagFromVanillaTier(MyTiers tier)
-		{
-			return switch(tier)
-					{
-						case Flint -> Flints;
-					};
-		}
+			public static final Tags.IOptionalNamedTag<Block> Flints = tag("needs_wood_tool");
 
-		public static final Tags.IOptionalNamedTag<Block> Flints = tag("needs_wood_tool");
+			private static Tags.IOptionalNamedTag<Block> tag(String name)
+			{
+				return BlockTags.createOptional(new ResourceLocation("forge", name));
+			}
 
-		private static Tags.IOptionalNamedTag<Block> tag(String name)
-		{
-			return BlockTags.createOptional(new ResourceLocation("forge", name));
-		}
-
-		public static final RegistryObject<Item> flint_machining_knife;
-
-		static {
-			flint_machining_knife = items.register("flint_machining_knife", () -> new Knife(Flint, 1, -2.8F, Knife.properties.tab(ItemTabs.knife)));
+			public static RegistryObject<Item> flint_machining_knife;
+			public static void init() {
+				flint_machining_knife = items.register("flint_machining_knife", () -> new Knife(Flint, 1, -2.8F, Knife.properties.tab(ItemTabs.knife)));
+			}
 		}
 	}
-
 }

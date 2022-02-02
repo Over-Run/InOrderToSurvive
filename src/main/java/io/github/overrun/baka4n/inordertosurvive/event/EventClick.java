@@ -19,6 +19,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+import static io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry.ItemRegistry.KnifeRegistry.*;
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
 import static net.minecraft.world.item.Items.*;
 
@@ -70,7 +71,7 @@ public class EventClick {
 			}
 		}
 
-		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(Blocks.GRASS.asItem().toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(AllRegistry.KnifeRegistry.flint_machining_knife.get().asItem().toString())) {
+		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(Blocks.GRASS.asItem().toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(flint_machining_knife.get().asItem().toString())) {
 			//get damage
 			//fix bug
 			//fix damage == 6
@@ -81,7 +82,7 @@ public class EventClick {
 			if (damage == 6) {
 				entityPlayer.setItemInHand(MAIN_HAND, airs);
 			} else {
-				AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(stack, damage);
+				flint_machining_knife.get().setDamage(stack, damage);
 			}
 			if (random <=30) {
 				entityPlayer.drop(itemStacks(AllRegistry.ItemRegistry.fuck.get().asItem()), true);
@@ -113,7 +114,7 @@ public class EventClick {
 
 		// main hand item don't have air
 		boolean b = !stack.toString().equals(AIR.toString());
-		boolean c = stack.toString().equals(AllRegistry.KnifeRegistry.flint_machining_knife.get().asItem().toString());
+		boolean c = stack.toString().equals(flint_machining_knife.get().asItem().toString());
 
 		//random
 		event.setCanceled(!item.equals(GRAVEL)
@@ -135,7 +136,7 @@ public class EventClick {
 					if (damage == 6) {
 						eventPlayer.setItemInHand(MAIN_HAND, airs);
 					} else {
-						AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(eventPlayer.getItemInHand(MAIN_HAND), damage);
+						flint_machining_knife.get().setDamage(eventPlayer.getItemInHand(MAIN_HAND), damage);
 					}
 				}
 			}
