@@ -6,14 +6,11 @@ import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.level.block.Block;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import static net.minecraft.world.item.crafting.Ingredient.fromValues;
-import static net.minecraftforge.common.ForgeHooks.getTagFromVanillaTier;
 
 public enum MyTiers implements Tier {
 	Flint(0, 5, 2.0F, 0.0F, 15, () -> {

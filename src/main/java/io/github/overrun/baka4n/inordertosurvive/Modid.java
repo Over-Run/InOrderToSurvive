@@ -7,4 +7,5 @@ package io.github.overrun.baka4n.inordertosurvive;
 public final class Modid {
 	public static final String modid = "inordertosurvive";
 	public static final String minecraft = "minecraft";
+	// Other developers can develop corresponding sub-mods in this api
 }

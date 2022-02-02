@@ -3,15 +3,11 @@ package io.github.overrun.baka4n.inordertosurvive.event;
 import io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.StreamTagVisitor;
 import net.minecraft.nbt.Tag;
-import net.minecraft.nbt.TagType;
-import net.minecraft.nbt.TagVisitor;
-import net.minecraft.resources.ResourceLocation;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -22,11 +18,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-
-import java.io.DataOutput;
-import java.io.IOException;
-import java.util.Random;
-import java.util.Set;
 
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
 import static net.minecraft.world.item.Items.*;

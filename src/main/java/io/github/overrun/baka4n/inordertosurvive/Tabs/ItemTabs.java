@@ -1,4 +1,4 @@
-package io.github.overrun.baka4n.inordertosurvive.Tabs;
+package io.github.overrun.baka4n.inordertosurvive.tabs;
 
 import io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry;
 import net.minecraft.world.item.CreativeModeTab;

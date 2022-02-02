@@ -1,6 +1,6 @@
 package io.github.overrun.baka4n.inordertosurvive.registry;
 
-import io.github.overrun.baka4n.inordertosurvive.Tabs.ItemTabs;
+import io.github.overrun.baka4n.inordertosurvive.tabs.ItemTabs;
 import io.github.overrun.baka4n.inordertosurvive.block.BasicBlock;
 import io.github.overrun.baka4n.inordertosurvive.item.BasicItem;
 import io.github.overrun.baka4n.inordertosurvive.item.TinIngot;
