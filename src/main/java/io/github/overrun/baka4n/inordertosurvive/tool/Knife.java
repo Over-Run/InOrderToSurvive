@@ -12,6 +12,7 @@ import java.util.Set;
 import static java.util.Set.of;
 
 public class Knife extends DiggerItem {
+	public static final Item.Properties properties = new Properties();
 	public static final ToolAction knife = ToolAction.get("pickaxe_dig");
 	public static final Set<ToolAction> default_knife = of(knife);
 	public Knife(Tier pTier, int pAttackDamageModifier, float pAttackSpeedModifier, Item.Properties pProperties) {

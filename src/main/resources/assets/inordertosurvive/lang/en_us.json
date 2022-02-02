@@ -1,6 +1,9 @@
 {
   "item.inordertosurvive.tin_ingot": "Tin Ingot",
   "item.inordertosurvive.flint_flakes": "Flint Flakes",
+  "item.inordertosurvive.fuck": "grass",
+  "item.inordertosurvive.flint_machining_knife": "Flint Machining Knife",
+  "itemGroup.inordertosurvive.knife": "knife",
   "itemGroup.inordertosurvive.basic": "in older to survive basic item",
   "itemGroup.inordertosurvive.block": "in older to survive block item"
 }

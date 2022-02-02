@@ -3,12 +3,18 @@ package io.github.overrun.baka4n.inordertosurvive.event;
 import io.github.overrun.baka4n.inordertosurvive.registry.AllRegistry;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.StreamTagVisitor;
+import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.TagType;
+import net.minecraft.nbt.TagVisitor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Material;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -16,6 +22,11 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import java.io.DataOutput;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Set;
 
 import static net.minecraft.world.InteractionHand.MAIN_HAND;
 import static net.minecraft.world.item.Items.*;
@@ -30,15 +41,24 @@ import static net.minecraft.world.item.Items.*;
  */
 @EventBusSubscriber(Dist.CLIENT)
 public class EventClick {
+	public static final ItemStack airs = itemStacks(AIR);
 	@SubscribeEvent
 	public static void rightClient(PlayerInteractEvent.RightClickBlock event) {
-		ItemStack stack = event.getItemStack();
+
+		// item count -1
 		int value = event.getItemStack().getCount();
-		int random = (int) (Math.random() * 100);
 		int a = value - 1;
+		// random
+		int random = (int) (Math.random() * 100);
+		//1.17.1 World ->1,18,1 Level
 		Level world = event.getWorld();
 		BlockPos blockPos = event.getPos();
+		//entity Player
 		Player entityPlayer = event.getPlayer();
+
+		//item stack
+		ItemStack stack = event.getItemStack();
+
 		if (stack.getItem().asItem().toString().equals(FLINT.toString()) && world.getBlockState(blockPos).getMaterial() == Material.STONE) {
 			if (value != 1) {
 				ItemStack handStack = new ItemStack(FLINT.asItem(), a);
@@ -58,9 +78,27 @@ public class EventClick {
 				}
 			}
 		}
+
+		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(Blocks.GRASS.asItem().toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(AllRegistry.KnifeRegistry.flint_machining_knife.get().asItem().toString())) {
+			//get damage
+			//fix bug
+			//fix damage == 6
+			// AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(stack, damage);
+			Tag tag = entityPlayer.getItemInHand(MAIN_HAND).finishUsingItem(world, entityPlayer).getTag().get("Damage");
+			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
+
+			if (damage == 6) {
+				entityPlayer.setItemInHand(MAIN_HAND, airs);
+			} else {
+				AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(stack, damage);
+			}
+			if (random <=30) {
+				entityPlayer.drop(itemStacks(AllRegistry.ItemRegistry.fuck.get().asItem()), true);
+			}
+		}
 	}
 	// Blocks cannot be broken in the early stage. You may have to make flint tools to break them.
-	// 未完工
+	// 未完0工
 	@SubscribeEvent
 	public static void Break(BlockEvent.BreakEvent event) {
 		/*
@@ -79,17 +117,50 @@ public class EventClick {
 		LevelAccessor world = event.getWorld();
 		BlockPos blockPos = event.getPos();
 		Item item = world.getBlockState(blockPos).getBlock().asItem();
+		// random
+		int random = (int) (Math.random() * 100);
 
 		// main hand item don't have air
 		boolean b = !stack.toString().equals(AIR.toString());
+		boolean c = stack.toString().equals(AllRegistry.KnifeRegistry.flint_machining_knife.get().asItem().toString());
+
 		//random
 		event.setCanceled(!item.equals(GRAVEL)
-				&& !ifBool(item, ACACIA_LEAVES, b)
-				&& !ifBool(item, BIRCH_LEAVES, b)
-				&& !ifBool(item, DARK_OAK_LEAVES, b)
-				&& !ifBool(item, JUNGLE_LEAVES, b)
-				&& !ifBool(item, SPRUCE_LEAVES, b)
-				&& !ifBool(item, OAK_LEAVES, b));
+				&& ifNoBool(item, ACACIA_LEAVES, b)
+				&& ifNoBool(item, BIRCH_LEAVES, b)
+				&& ifNoBool(item, DARK_OAK_LEAVES, b)
+				&& ifNoBool(item, JUNGLE_LEAVES, b)
+				&& ifNoBool(item, SPRUCE_LEAVES, b)
+				&& ifNoBool(item, OAK_LEAVES, b)
+				&& ifNoBool(item, GRASS, c));
+
+		if (ifBool(item, GRASS, c)) {
+			Tag tag = eventPlayer.getItemInHand(MAIN_HAND).finishUsingItem((Level) world, eventPlayer).getTag().get("Damage");
+			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
+			switch (random) {
+				// There is a certain probability that there is no loss
+				case 1, 3, 5, 7, 11, 13, 17, 19, 23 ->{}
+				default -> {
+					if (damage == 6) {
+						eventPlayer.setItemInHand(MAIN_HAND, airs);
+					} else {
+						AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(eventPlayer.getItemInHand(MAIN_HAND), damage);
+					}
+				}
+			}
+
+			if (random <=31) {
+				eventPlayer.drop(itemStacks(AllRegistry.ItemRegistry.fuck.get().asItem()), true);
+			}
+		}
+
+	}
+
+	public static ItemStack itemStacks(Item item) {
+		return new ItemStack(item);
+	}
+	public static boolean ifNoBool(Item item, Item item2, boolean b) {
+		return !item.equals(item2) && b;
 	}
 	public static boolean ifBool(Item item,Item item2, boolean b) {
 		return item.equals(item2) && b;

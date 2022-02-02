@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B",
+    "A "
+  ],
+  "key": {
+    "B": {
+      "item": "inordertosurvive:flint_flakes"
+    },
+    "A": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "inordertosurvive:flint_machining_knife"
+  }
+}

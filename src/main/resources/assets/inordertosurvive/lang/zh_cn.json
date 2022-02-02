@@ -1,6 +1,9 @@
 {
   "item.inordertosurvive.tin_ingot": "锡锭",
   "item.inordertosurvive.flint_flakes": "燧石片",
+  "item.inordertosurvive.fuck": "草",
+  "item.inordertosurvive.flint_machining_knife": "燧石加工刀",
+  "itemGroup.inordertosurvive.knife": "刀",
   "itemGroup.inordertosurvive.basic": "为了生活模组基础物品",
   "itemGroup.inordertosurvive.block": "为了生活模组方块"
 }
