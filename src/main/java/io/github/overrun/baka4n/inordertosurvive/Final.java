@@ -41,7 +41,7 @@ public class Final {
 
 	//Item Stacks
 	public static final ItemStack airs = new ItemStack(AIR);
-	public static final ItemStack fuck = new ItemStack(AllRegistry.ItemRegistry.fuck.get().asItem());
+
 
 	//registry object
 	public static final DeferredRegister<Block> blocks =

@@ -10,11 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.Material;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -73,11 +71,12 @@ public class EventClick {
 		}
 
 		if (world.getBlockState(blockPos).getBlock().asItem().toString().equals(GRASS.toString()) && entityPlayer.getItemInHand(MAIN_HAND).getItem().asItem().toString().equals(flint_machining_knife.get().asItem().toString())) {
+			final ItemStack fuck = new ItemStack(AllRegistry.ItemRegistry.fuck.get().asItem());
 			//get damage
 			//fix bug
 			//fix damage == 6
 			// AllRegistry.KnifeRegistry.flint_machining_knife.get().setDamage(stack, damage);
-			Tag tag = Objects.requireNonNull(entityPlayer.getItemInHand(MAIN_HAND).finishUsingItem(world, entityPlayer).getTag()).get("Damage");
+			final Tag tag = entityPlayer.getItemInHand(MAIN_HAND).finishUsingItem(world, entityPlayer).getTag().get("Damage");
 			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
 
 			if (damage == 6) {
@@ -94,38 +93,39 @@ public class EventClick {
 	// 未完0工
 	@SubscribeEvent
 	public static void Break(BlockEvent.BreakEvent event) {
+		final ItemStack fuck = new ItemStack(AllRegistry.ItemRegistry.fuck.get().asItem());
 		/*
 		get player
 		get my main hand item
 		get my main hand item stack
 		 */
-		Player eventPlayer = event.getPlayer();
-		Item handItem = eventPlayer.getItemInHand(MAIN_HAND).getItem().asItem();
-		Item stack = new ItemStack(handItem).getItem().asItem();
+		final Player eventPlayer = event.getPlayer();
+		final Item handItem = eventPlayer.getItemInHand(MAIN_HAND).getItem().asItem();
+		final Item stack = new ItemStack(handItem).getItem().asItem();
 		/*
 		  get world
 		  get break world block pos
 		  give break world block item
 		 */
-		LevelAccessor world = event.getWorld();
-		BlockPos blockPos = event.getPos();
-		Item item = world.getBlockState(blockPos).getBlock().asItem();
+		final LevelAccessor world = event.getWorld();
+		final BlockPos blockPos = event.getPos();
+		final Item item = world.getBlockState(blockPos).getBlock().asItem();
 
 		// main hand item don't have air
-		boolean b = !stack.toString().equals(AIR.toString());
-		boolean c = stack.toString().equals(flint_machining_knife.get().asItem().toString());
+		final boolean b = !stack.toString().equals(AIR.toString());
+		final boolean c = stack.toString().equals(flint_machining_knife.get().asItem().toString());
 
 		event.setCanceled(!item.equals(GRAVEL)
-				&& ifNoBool(item, ACACIA_LEAVES, b)
-				&& ifNoBool(item, BIRCH_LEAVES, b)
-				&& ifNoBool(item, DARK_OAK_LEAVES, b)
-				&& ifNoBool(item, JUNGLE_LEAVES, b)
-				&& ifNoBool(item, SPRUCE_LEAVES, b)
-				&& ifNoBool(item, OAK_LEAVES, b)
-				&& ifNoBool(item, GRASS, c));
+				&& !ifBool(item, ACACIA_LEAVES, b)
+				&& !ifBool(item, BIRCH_LEAVES, b)
+				&& !ifBool(item, DARK_OAK_LEAVES, b)
+				&& !ifBool(item, JUNGLE_LEAVES, b)
+				&& !ifBool(item, SPRUCE_LEAVES, b)
+				&& !ifBool(item, OAK_LEAVES, b)
+				&& !ifBool(item, GRASS, c));
 
 		if (ifBool(item, GRASS, c)) {
-			Tag tag = Objects.requireNonNull(eventPlayer.getItemInHand(MAIN_HAND).finishUsingItem((Level) world, eventPlayer).getTag()).get("Damage");
+			Tag tag = eventPlayer.getItemInHand(MAIN_HAND).finishUsingItem((Level) world, eventPlayer).getTag().get("Damage");
 			int damage = Integer.parseInt(String.valueOf(tag)) + 1;
 			switch (ran) {
 				// There is a certain probability that there is no loss
@@ -144,10 +144,6 @@ public class EventClick {
 			}
 		}
 
-	}
-
-	public static boolean ifNoBool(Item item, Item item2, boolean b) {
-		return !item.equals(item2) && b;
 	}
 	public static boolean ifBool(Item item,Item item2, boolean b) {
 		return item.equals(item2) && b;
